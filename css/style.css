@@ -8,13 +8,7 @@
     src:url(../assets/fonts/OpenSans-Regular.ttf);
 }
 
-
-body{
-    background-color: #FF4E3D;
-}
-
 h1{
-    color: #1A222F;
     font-family: OpenSans_Bold;
     font-size: 70px;
     text-align: center;
@@ -22,7 +16,6 @@ h1{
 
 #byTDP{
     font-size: 11px;
-    color: #FFE9AD;
     letter-spacing: -0.5px;
 }
 
@@ -51,4 +44,11 @@ h1{
     border: none;
     padding: 10px;
     font-size: 18px;
+}
+
+#themeSelection {
+    position: relative;
+    top: 0px;
+    float: right;
+    margin: 10px;
 }

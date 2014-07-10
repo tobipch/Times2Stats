@@ -1,0 +1,82 @@
+/* Color Theme: ROADTRIP */
+$darkAccent:   #1A232A;
+$darkBase:     #583A2A;
+$baseColor:    #A65639;
+$lightBase:    #66A5B3;
+$lightAccent:  #F1E7E8;
+
+body{
+    background-color: $baseColor;
+}
+
+#byTDP{
+    color: $darkBase;
+}
+
+h1{
+    color: $darkAccent;
+}
+
+#graphBtn{
+    background-color: $lightBase;
+    color: $darkBase;
+    border: 1px solid rgba(0,0,0,0);
+}
+
+/*Additional Info Color*/
+div.fancy-select {
+	color: $darkBase;
+}
+
+/*Shadow on Focus*/
+div.fancy-select select:focus + div.trigger {
+	box-shadow: 0 0 0 2px $darkBase;
+}
+
+/*Trigger-Element*/
+div.fancy-select div.trigger{
+    background: $darkBase;
+    border: 1px solid $darkBase;
+    border-top-color: $darkBase;
+    color: $lightBase;
+}
+
+/*Dropdown Arrow*/
+div.fancy-select div.trigger:after{
+    border-top-color: $lightBase;
+}
+
+/*Open Trigger-Element*/
+div.fancy-select div.trigger.open {
+	background: $darkBase;
+	border: 1px solid $darkBase;
+	color: $lightAccent;
+	box-shadow: none;
+}
+
+/*Drodpdown Arrof if Trigger-Element is open*/
+div.fancy-select div.trigger.open:after {
+	border-top-color: $lightAccent;
+}
+
+/*Option Container (List of lis)*/
+div.fancy-select ul.options{
+    background: $lightBase;
+}
+
+/*Option Color (li color)*/
+div.fancy-select ul.options li{
+    color: $darkBase;
+}
+
+/*li selected / Option Selected*/
+div.fancy-select ul.options li.selected {
+	background: $darkBase;
+	color: $lightBase;
+}
+
+/*li font-color on hover*/
+div.fancy-select ul.options li.hover {
+	background-color: $darkBase;
+    color: $baseColor;
+}

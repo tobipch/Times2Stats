@@ -1,0 +1,64 @@
+/* Color Theme: ROADTRIP */
+body {
+  background-color: #A65639; }
+
+#byTDP {
+  color: #583A2A; }
+
+h1 {
+  color: #1A232A; }
+
+#graphBtn {
+  background-color: #66A5B3;
+  color: #583A2A;
+  border: 1px solid rgba(0, 0, 0, 0); }
+
+/*Additional Info Color*/
+div.fancy-select {
+  color: #583A2A; }
+
+/*Shadow on Focus*/
+div.fancy-select select:focus + div.trigger {
+  box-shadow: 0 0 0 2px #583A2A; }
+
+/*Trigger-Element*/
+div.fancy-select div.trigger {
+  background: #583A2A;
+  border: 1px solid #583A2A;
+  border-top-color: #583A2A;
+  color: #66A5B3; }
+
+/*Dropdown Arrow*/
+div.fancy-select div.trigger:after {
+  border-top-color: #66A5B3; }
+
+/*Open Trigger-Element*/
+div.fancy-select div.trigger.open {
+  background: #583A2A;
+  border: 1px solid #583A2A;
+  color: #F1E7E8;
+  box-shadow: none; }
+
+/*Drodpdown Arrof if Trigger-Element is open*/
+div.fancy-select div.trigger.open:after {
+  border-top-color: #F1E7E8; }
+
+/*Option Container (List of lis)*/
+div.fancy-select ul.options {
+  background: #66A5B3; }
+
+/*Option Color (li color)*/
+div.fancy-select ul.options li {
+  color: #583A2A; }
+
+/*li selected / Option Selected*/
+div.fancy-select ul.options li.selected {
+  background: #583A2A;
+  color: #66A5B3; }
+
+/*li font-color on hover*/
+div.fancy-select ul.options li.hover {
+  background-color: #583A2A;
+  color: #A65639; }
+
+/*# sourceMappingURL=roadtrip.css.map */

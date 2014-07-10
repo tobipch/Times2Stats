@@ -1,0 +1,64 @@
+/* Color Theme: FRESHUI */
+body {
+  background-color: #1A454D; }
+
+#byTDP {
+  color: #D3F578; }
+
+h1 {
+  color: #FF4E50; }
+
+#graphBtn {
+  background-color: #16272B;
+  color: #D3F578;
+  border: 1px solid rgba(0, 0, 0, 0); }
+
+/*Additional Info Color*/
+div.fancy-select {
+  color: #D3F578; }
+
+/*Shadow on Focus*/
+div.fancy-select select:focus + div.trigger {
+  box-shadow: 0 0 0 2px #D3F578; }
+
+/*Trigger-Element*/
+div.fancy-select div.trigger {
+  background: #D3F578;
+  border: 1px solid #D3F578;
+  border-top-color: #D3F578;
+  color: #16272B; }
+
+/*Dropdown Arrow*/
+div.fancy-select div.trigger:after {
+  border-top-color: #16272B; }
+
+/*Open Trigger-Element*/
+div.fancy-select div.trigger.open {
+  background: #D3F578;
+  border: 1px solid #D3F578;
+  color: #121A1C;
+  box-shadow: none; }
+
+/*Drodpdown Arrof if Trigger-Element is open*/
+div.fancy-select div.trigger.open:after {
+  border-top-color: #121A1C; }
+
+/*Option Container (List of lis)*/
+div.fancy-select ul.options {
+  background: #16272B; }
+
+/*Option Color (li color)*/
+div.fancy-select ul.options li {
+  color: #D3F578; }
+
+/*li selected / Option Selected*/
+div.fancy-select ul.options li.selected {
+  background: #D3F578;
+  color: #16272B; }
+
+/*li font-color on hover*/
+div.fancy-select ul.options li.hover {
+  background-color: #D3F578;
+  color: #1A454D; }
+
+/*# sourceMappingURL=freshui.css.map */

@@ -1,0 +1,64 @@
+/* Color Theme: OCEAN */
+body {
+  background-color: #2675A6; }
+
+#byTDP {
+  color: #14548C; }
+
+h1 {
+  color: #072540; }
+
+#graphBtn {
+  background-color: #50A0BF;
+  color: #14548C;
+  border: 1px solid rgba(0, 0, 0, 0); }
+
+/*Additional Info Color*/
+div.fancy-select {
+  color: #14548C; }
+
+/*Shadow on Focus*/
+div.fancy-select select:focus + div.trigger {
+  box-shadow: 0 0 0 2px #14548C; }
+
+/*Trigger-Element*/
+div.fancy-select div.trigger {
+  background: #14548C;
+  border: 1px solid #14548C;
+  border-top-color: #14548C;
+  color: #50A0BF; }
+
+/*Dropdown Arrow*/
+div.fancy-select div.trigger:after {
+  border-top-color: #50A0BF; }
+
+/*Open Trigger-Element*/
+div.fancy-select div.trigger.open {
+  background: #14548C;
+  border: 1px solid #14548C;
+  color: #79C7D9;
+  box-shadow: none; }
+
+/*Drodpdown Arrof if Trigger-Element is open*/
+div.fancy-select div.trigger.open:after {
+  border-top-color: #79C7D9; }
+
+/*Option Container (List of lis)*/
+div.fancy-select ul.options {
+  background: #50A0BF; }
+
+/*Option Color (li color)*/
+div.fancy-select ul.options li {
+  color: #14548C; }
+
+/*li selected / Option Selected*/
+div.fancy-select ul.options li.selected {
+  background: #14548C;
+  color: #50A0BF; }
+
+/*li font-color on hover*/
+div.fancy-select ul.options li.hover {
+  background-color: #14548C;
+  color: #2675A6; }
+
+/*# sourceMappingURL=ocean.css.map */

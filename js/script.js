@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    //Trigge on "Go Graph"-Button-Click
     $("#graphBtn").click(function(){
         
         var timeArr = $("#timeInput").val().replace(/\s+/g, '').split(",").map(function(el){return parseFloat(el)});
@@ -10,8 +11,11 @@ $(document).ready(function(){
         }
     });
     
+    //Attach fancySelect Function to Select-Items
     $("#chartSelection").fancySelect();
+    $("#themeSelection").fancySelect();
     
+    //Create a Line Graph
     function createLineGraph(timeArr){
         $("#chartContainer").highcharts({
             chart: {
@@ -53,3 +57,13 @@ $(document).ready(function(){
         });
     }
 });
+
+
+function changeTheme(){
+    var filename = $("#themeSelection")[0].value;
+    var fileref = document.createElement("link");
+    fileref.setAttribute("rel","stylesheet");
+    fileref.setAttribute("type", "text/css");
+    fileref.setAttribute("href", "css/themes/"+filename+"/"+filename+".css");
+    document.getElementsByTagName("head")[0].appendChild(fileref);
+}
