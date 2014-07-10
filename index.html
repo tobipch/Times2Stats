@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Timer Mockup</title>
+        <script src="js/libs/jquery-2.1.1.min.js"></script>
+        <script src="js/libs/highcharts.js"></script>
+        <script src="js/libs/fancySelect.js"></script>
+        <script src="js/script.js"></script>
+        <link rel="stylesheet" href="css/libs/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/libs/fancySelect.css" />
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+    <body>
+    <h1>Times 2 Graph<a href="http://tobip.ch" id="byTDP">(by TDP)</a></h1>       
+    <div id="inputContainer"><textarea name="Time Input" id="timeInput" cols="100" rows="5" placeholder="Your times..."></textarea></div>
+    <select class="basic" id="chartSelection">
+        <option value="linechart">Line Chart</option>
+    </select>
+    <input type="button" class="btn btn-lg btn-primary" value="Go Graph!" id="graphBtn">
+
+    <div id="chartContainer"></div>
+    </body>
+</html>
