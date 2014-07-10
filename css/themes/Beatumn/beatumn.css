@@ -1,6 +1,6 @@
 /* Color Theme: BEATUMN */
 body {
-  background-color: #F29F05; }
+  background-color: #f29f05; }
 
 #byTDP {
   color: #323418; }
@@ -9,9 +9,19 @@ h1 {
   color: #070300; }
 
 #graphBtn {
-  background-color: #F27405;
+  background-color: #f27405;
   color: #323418;
-  border: 1px solid rgba(0, 0, 0, 0); }
+  border: 1px solid transparent; }
+
+#infoContainer {
+  margin: 10px; }
+
+.infoLink {
+  color: #070300;
+  font-weight: bold; }
+
+.infoLink:hover {
+  color: #323418; }
 
 /*Additional Info Color*/
 div.fancy-select {
@@ -26,26 +36,26 @@ div.fancy-select div.trigger {
   background: #323418;
   border: 1px solid #323418;
   border-top-color: #323418;
-  color: #F27405; }
+  color: #f27405; }
 
 /*Dropdown Arrow*/
 div.fancy-select div.trigger:after {
-  border-top-color: #F27405; }
+  border-top-color: #f27405; }
 
 /*Open Trigger-Element*/
 div.fancy-select div.trigger.open {
   background: #323418;
   border: 1px solid #323418;
-  color: #8C4303;
+  color: #8c4303;
   box-shadow: none; }
 
 /*Drodpdown Arrof if Trigger-Element is open*/
 div.fancy-select div.trigger.open:after {
-  border-top-color: #8C4303; }
+  border-top-color: #8c4303; }
 
 /*Option Container (List of lis)*/
 div.fancy-select ul.options {
-  background: #F27405; }
+  background: #f27405; }
 
 /*Option Color (li color)*/
 div.fancy-select ul.options li {
@@ -54,11 +64,9 @@ div.fancy-select ul.options li {
 /*li selected / Option Selected*/
 div.fancy-select ul.options li.selected {
   background: #323418;
-  color: #F27405; }
+  color: #f27405; }
 
 /*li font-color on hover*/
 div.fancy-select ul.options li.hover {
   background-color: #323418;
-  color: #F29F05; }
-
-/*# sourceMappingURL=beatumn.css.map */
+  color: #f29f05; }

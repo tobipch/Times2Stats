@@ -1,31 +1,41 @@
 /* Color Theme: AMBERDUST */
 body {
-  background-color: #E4591E; }
+  background-color: #e4591e; }
 
 #byTDP {
-  color: #AAA09A; }
+  color: #aaa09a; }
 
 h1 {
-  color: #EBE4DA; }
+  color: #ebe4da; }
 
 #graphBtn {
   background-color: #242222;
-  color: #AAA09A;
-  border: 1px solid rgba(0, 0, 0, 0); }
+  color: #aaa09a;
+  border: 1px solid transparent; }
+
+#infoContainer {
+  margin: 10px; }
+
+.infoLink {
+  color: #ebe4da;
+  font-weight: bold; }
+
+.infoLink:hover {
+  color: #aaa09a; }
 
 /*Additional Info Color*/
 div.fancy-select {
-  color: #AAA09A; }
+  color: #aaa09a; }
 
 /*Shadow on Focus*/
 div.fancy-select select:focus + div.trigger {
-  box-shadow: 0 0 0 2px #AAA09A; }
+  box-shadow: 0 0 0 2px #aaa09a; }
 
 /*Trigger-Element*/
 div.fancy-select div.trigger {
-  background: #AAA09A;
-  border: 1px solid #AAA09A;
-  border-top-color: #AAA09A;
+  background: #aaa09a;
+  border: 1px solid #aaa09a;
+  border-top-color: #aaa09a;
   color: #242222; }
 
 /*Dropdown Arrow*/
@@ -34,14 +44,14 @@ div.fancy-select div.trigger:after {
 
 /*Open Trigger-Element*/
 div.fancy-select div.trigger.open {
-  background: #AAA09A;
-  border: 1px solid #AAA09A;
-  color: #1F1D1D;
+  background: #aaa09a;
+  border: 1px solid #aaa09a;
+  color: #1f1d1d;
   box-shadow: none; }
 
 /*Drodpdown Arrof if Trigger-Element is open*/
 div.fancy-select div.trigger.open:after {
-  border-top-color: #1F1D1D; }
+  border-top-color: #1f1d1d; }
 
 /*Option Container (List of lis)*/
 div.fancy-select ul.options {
@@ -49,16 +59,14 @@ div.fancy-select ul.options {
 
 /*Option Color (li color)*/
 div.fancy-select ul.options li {
-  color: #AAA09A; }
+  color: #aaa09a; }
 
 /*li selected / Option Selected*/
 div.fancy-select ul.options li.selected {
-  background: #AAA09A;
+  background: #aaa09a;
   color: #242222; }
 
 /*li font-color on hover*/
 div.fancy-select ul.options li.hover {
-  background-color: #AAA09A;
-  color: #E4591E; }
-
-/*# sourceMappingURL=amberdust.css.map */
+  background-color: #aaa09a;
+  color: #e4591e; }

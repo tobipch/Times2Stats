@@ -3,62 +3,70 @@ body {
   background-color: #322440; }
 
 #byTDP {
-  color: #5A7E8C; }
+  color: #5a7e8c; }
 
 h1 {
-  color: #A64646; }
+  color: #a64646; }
 
 #graphBtn {
-  background-color: #1F1426;
-  color: #5A7E8C;
-  border: 1px solid rgba(0, 0, 0, 0); }
+  background-color: #1f1426;
+  color: #5a7e8c;
+  border: 1px solid transparent; }
+
+#infoContainer {
+  margin: 10px; }
+
+.infoLink {
+  color: #a64646;
+  font-weight: bold; }
+
+.infoLink:hover {
+  color: #5a7e8c; }
 
 /*Additional Info Color*/
 div.fancy-select {
-  color: #5A7E8C; }
+  color: #5a7e8c; }
 
 /*Shadow on Focus*/
 div.fancy-select select:focus + div.trigger {
-  box-shadow: 0 0 0 2px #5A7E8C; }
+  box-shadow: 0 0 0 2px #5a7e8c; }
 
 /*Trigger-Element*/
 div.fancy-select div.trigger {
-  background: #5A7E8C;
-  border: 1px solid #5A7E8C;
-  border-top-color: #5A7E8C;
-  color: #1F1426; }
+  background: #5a7e8c;
+  border: 1px solid #5a7e8c;
+  border-top-color: #5a7e8c;
+  color: #1f1426; }
 
 /*Dropdown Arrow*/
 div.fancy-select div.trigger:after {
-  border-top-color: #1F1426; }
+  border-top-color: #1f1426; }
 
 /*Open Trigger-Element*/
 div.fancy-select div.trigger.open {
-  background: #5A7E8C;
-  border: 1px solid #5A7E8C;
-  color: #62696F;
+  background: #5a7e8c;
+  border: 1px solid #5a7e8c;
+  color: #62696f;
   box-shadow: none; }
 
 /*Drodpdown Arrof if Trigger-Element is open*/
 div.fancy-select div.trigger.open:after {
-  border-top-color: #62696F; }
+  border-top-color: #62696f; }
 
 /*Option Container (List of lis)*/
 div.fancy-select ul.options {
-  background: #1F1426; }
+  background: #1f1426; }
 
 /*Option Color (li color)*/
 div.fancy-select ul.options li {
-  color: #5A7E8C; }
+  color: #5a7e8c; }
 
 /*li selected / Option Selected*/
 div.fancy-select ul.options li.selected {
-  background: #5A7E8C;
-  color: #1F1426; }
+  background: #5a7e8c;
+  color: #1f1426; }
 
 /*li font-color on hover*/
 div.fancy-select ul.options li.hover {
-  background-color: #5A7E8C;
+  background-color: #5a7e8c;
   color: #322440; }
-
-/*# sourceMappingURL=galaxy.css.map */

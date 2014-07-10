@@ -1,64 +1,72 @@
 /* Color Theme: LUCERNE */
 body {
-  background-color: #A79174; }
+  background-color: #a79174; }
 
 #byTDP {
-  color: #7B7765; }
+  color: #7b7765; }
 
 h1 {
-  color: #4C5859; }
+  color: #4c5859; }
 
 #graphBtn {
-  background-color: #CCBF9C;
-  color: #7B7765;
-  border: 1px solid rgba(0, 0, 0, 0); }
+  background-color: #ccbf9c;
+  color: #7b7765;
+  border: 1px solid transparent; }
+
+#infoContainer {
+  margin: 10px; }
+
+.infoLink {
+  color: #4c5859;
+  font-weight: bold; }
+
+.infoLink:hover {
+  color: #7b7765; }
 
 /*Additional Info Color*/
 div.fancy-select {
-  color: #7B7765; }
+  color: #7b7765; }
 
 /*Shadow on Focus*/
 div.fancy-select select:focus + div.trigger {
-  box-shadow: 0 0 0 2px #7B7765; }
+  box-shadow: 0 0 0 2px #7b7765; }
 
 /*Trigger-Element*/
 div.fancy-select div.trigger {
-  background: #7B7765;
-  border: 1px solid #7B7765;
-  border-top-color: #7B7765;
-  color: #CCBF9C; }
+  background: #7b7765;
+  border: 1px solid #7b7765;
+  border-top-color: #7b7765;
+  color: #ccbf9c; }
 
 /*Dropdown Arrow*/
 div.fancy-select div.trigger:after {
-  border-top-color: #CCBF9C; }
+  border-top-color: #ccbf9c; }
 
 /*Open Trigger-Element*/
 div.fancy-select div.trigger.open {
-  background: #7B7765;
-  border: 1px solid #7B7765;
-  color: #CBCCB4;
+  background: #7b7765;
+  border: 1px solid #7b7765;
+  color: #cbccb4;
   box-shadow: none; }
 
 /*Drodpdown Arrof if Trigger-Element is open*/
 div.fancy-select div.trigger.open:after {
-  border-top-color: #CBCCB4; }
+  border-top-color: #cbccb4; }
 
 /*Option Container (List of lis)*/
 div.fancy-select ul.options {
-  background: #CCBF9C; }
+  background: #ccbf9c; }
 
 /*Option Color (li color)*/
 div.fancy-select ul.options li {
-  color: #7B7765; }
+  color: #7b7765; }
 
 /*li selected / Option Selected*/
 div.fancy-select ul.options li.selected {
-  background: #7B7765;
-  color: #CCBF9C; }
+  background: #7b7765;
+  color: #ccbf9c; }
 
 /*li font-color on hover*/
 div.fancy-select ul.options li.hover {
-  background-color: #7B7765;
-  color: #A79174; }
-
-/*# sourceMappingURL=lucerne.css.map */
+  background-color: #7b7765;
+  color: #a79174; }

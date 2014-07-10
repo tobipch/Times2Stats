@@ -1,64 +1,72 @@
 /* Color Theme: FRESHUI */
 body {
-  background-color: #1A454D; }
+  background-color: #1a454d; }
 
 #byTDP {
-  color: #D3F578; }
+  color: #d3f578; }
 
 h1 {
-  color: #FF4E50; }
+  color: #ff4e50; }
 
 #graphBtn {
-  background-color: #16272B;
-  color: #D3F578;
-  border: 1px solid rgba(0, 0, 0, 0); }
+  background-color: #16272b;
+  color: #d3f578;
+  border: 1px solid transparent; }
+
+#infoContainer {
+  margin: 10px; }
+
+.infoLink {
+  color: #ff4e50;
+  font-weight: bold; }
+
+.infoLink:hover {
+  color: #d3f578; }
 
 /*Additional Info Color*/
 div.fancy-select {
-  color: #D3F578; }
+  color: #d3f578; }
 
 /*Shadow on Focus*/
 div.fancy-select select:focus + div.trigger {
-  box-shadow: 0 0 0 2px #D3F578; }
+  box-shadow: 0 0 0 2px #d3f578; }
 
 /*Trigger-Element*/
 div.fancy-select div.trigger {
-  background: #D3F578;
-  border: 1px solid #D3F578;
-  border-top-color: #D3F578;
-  color: #16272B; }
+  background: #d3f578;
+  border: 1px solid #d3f578;
+  border-top-color: #d3f578;
+  color: #16272b; }
 
 /*Dropdown Arrow*/
 div.fancy-select div.trigger:after {
-  border-top-color: #16272B; }
+  border-top-color: #16272b; }
 
 /*Open Trigger-Element*/
 div.fancy-select div.trigger.open {
-  background: #D3F578;
-  border: 1px solid #D3F578;
-  color: #121A1C;
+  background: #d3f578;
+  border: 1px solid #d3f578;
+  color: #121a1c;
   box-shadow: none; }
 
 /*Drodpdown Arrof if Trigger-Element is open*/
 div.fancy-select div.trigger.open:after {
-  border-top-color: #121A1C; }
+  border-top-color: #121a1c; }
 
 /*Option Container (List of lis)*/
 div.fancy-select ul.options {
-  background: #16272B; }
+  background: #16272b; }
 
 /*Option Color (li color)*/
 div.fancy-select ul.options li {
-  color: #D3F578; }
+  color: #d3f578; }
 
 /*li selected / Option Selected*/
 div.fancy-select ul.options li.selected {
-  background: #D3F578;
-  color: #16272B; }
+  background: #d3f578;
+  color: #16272b; }
 
 /*li font-color on hover*/
 div.fancy-select ul.options li.hover {
-  background-color: #D3F578;
-  color: #1A454D; }
-
-/*# sourceMappingURL=freshui.css.map */
+  background-color: #d3f578;
+  color: #1a454d; }

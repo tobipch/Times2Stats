@@ -1,5 +1,9 @@
 #Times 2 Graph
 
+##Link
+You can find T2G **[here](http://tobip.ch/times2graph/)**
+
+##How To
 Convert your Cubing Times easily to a graph with this nice tool.
 
 Let's say you have some times from qqtimer like this:

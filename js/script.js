@@ -1,7 +1,9 @@
 $(document).ready(function(){
-    //Trigge on "Go Graph"-Button-Click
-    $("#graphBtn").click(function(){
-        
+    //Trigger on "Go Graph"-Button-Click
+    $("#graphBtn").click(displayGraph);
+    
+    //Function to display the Graph
+    function displayGraph(){
         var timeArr = $("#timeInput").val().replace(/\s+/g, '').split(",").map(function(el){return parseFloat(el)});
         console.log(timeArr);
         
@@ -9,7 +11,7 @@ $(document).ready(function(){
             case "linechart":
                 createLineGraph(timeArr);
         }
-    });
+    }
     
     //Attach fancySelect Function to Select-Items
     $("#chartSelection").fancySelect();

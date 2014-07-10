@@ -52,3 +52,8 @@ h1{
     float: right;
     margin: 10px;
 }
+
+#infoContainer {
+    top: 0px;
+    position: relative;
+}

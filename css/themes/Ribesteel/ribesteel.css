@@ -1,41 +1,51 @@
 /* Color Theme: RIBESTEEL */
 body {
-  background-color: #33A8FF; }
+  background-color: #33a8ff; }
 
 #byTDP {
-  color: #231F20; }
+  color: #231f20; }
 
 h1 {
   color: #821717; }
 
 #graphBtn {
-  background-color: #F2F2F2;
-  color: #231F20;
-  border: 1px solid rgba(0, 0, 0, 0); }
+  background-color: #f2f2f2;
+  color: #231f20;
+  border: 1px solid transparent; }
+
+#infoContainer {
+  margin: 10px; }
+
+.infoLink {
+  color: #821717;
+  font-weight: bold; }
+
+.infoLink:hover {
+  color: #231f20; }
 
 /*Additional Info Color*/
 div.fancy-select {
-  color: #231F20; }
+  color: #231f20; }
 
 /*Shadow on Focus*/
 div.fancy-select select:focus + div.trigger {
-  box-shadow: 0 0 0 2px #231F20; }
+  box-shadow: 0 0 0 2px #231f20; }
 
 /*Trigger-Element*/
 div.fancy-select div.trigger {
-  background: #231F20;
-  border: 1px solid #231F20;
-  border-top-color: #231F20;
-  color: #F2F2F2; }
+  background: #231f20;
+  border: 1px solid #231f20;
+  border-top-color: #231f20;
+  color: #f2f2f2; }
 
 /*Dropdown Arrow*/
 div.fancy-select div.trigger:after {
-  border-top-color: #F2F2F2; }
+  border-top-color: #f2f2f2; }
 
 /*Open Trigger-Element*/
 div.fancy-select div.trigger.open {
-  background: #231F20;
-  border: 1px solid #231F20;
+  background: #231f20;
+  border: 1px solid #231f20;
   color: #323232;
   box-shadow: none; }
 
@@ -45,20 +55,18 @@ div.fancy-select div.trigger.open:after {
 
 /*Option Container (List of lis)*/
 div.fancy-select ul.options {
-  background: #F2F2F2; }
+  background: #f2f2f2; }
 
 /*Option Color (li color)*/
 div.fancy-select ul.options li {
-  color: #231F20; }
+  color: #231f20; }
 
 /*li selected / Option Selected*/
 div.fancy-select ul.options li.selected {
-  background: #231F20;
-  color: #F2F2F2; }
+  background: #231f20;
+  color: #f2f2f2; }
 
 /*li font-color on hover*/
 div.fancy-select ul.options li.hover {
-  background-color: #231F20;
-  color: #33A8FF; }
-
-/*# sourceMappingURL=ribesteel.css.map */
+  background-color: #231f20;
+  color: #33a8ff; }
