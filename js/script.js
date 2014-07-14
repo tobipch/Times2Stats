@@ -37,7 +37,7 @@ function sampleData(){
         var randNum = ((Math.random()*20)+1).toFixed(2);
         sampleData += randNum.toString() + ", ";
     }
-    sampleData = sampleData.substring(0, sampleData.length - 1);
+    sampleData = sampleData.substring(0, sampleData.length - 2);
     document.getElementById("timeInput").value = sampleData;
 }
 
