@@ -1,4 +1,9 @@
 /* Color Theme: ROADTRIP */
+/*  
+    To update themes run following command
+    <sass --update themes:themes>
+    from css directory
+*/
 body {
   background-color: #a65639; }
 
@@ -8,10 +13,15 @@ body {
 h1 {
   color: #1a232a; }
 
-#graphBtn {
+.optionBtn {
   background-color: #66a5b3;
   color: #583a2a;
   border: 1px solid transparent; }
+
+.optionBtn:hover, .optionBtn:focus {
+  background-color: #583a2a !important;
+  color: #66a5b3 !important;
+  border: 1px solid transparent !important; }
 
 #infoContainer {
   margin: 10px; }

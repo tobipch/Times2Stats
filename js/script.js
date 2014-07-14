@@ -11,6 +11,7 @@ $(document).ready(function(){
     
     //Trigger on "Go Graph"-Button-Click
     $("#graphBtn").click(displayGraph);
+    $("#sampleDataBtn").click(sampleData);
     
     //Attach fancySelect Function to Select-Items
     $("#chartSelection").fancySelect();
@@ -28,6 +29,18 @@ function changeTheme(themeName){
     localStorage.setItem("chosenTheme",filename);
 }
 
+////Input Sample Data////
+function sampleData(){
+    document.getElementById("timeInput").value = "";
+    var sampleData = "";
+    for(var i=0;i<=100;i++){
+        var randNum = ((Math.random()*20)+1).toFixed(2);
+        sampleData += randNum.toString() + ", ";
+    }
+    sampleData = sampleData.substring(0, sampleData.length - 1);
+    document.getElementById("timeInput").value = sampleData;
+}
+
 /*-------------------------*/
 /////////////////////////////
 ///////GRAPH-FUNCTIONS///////
@@ -40,14 +53,15 @@ function displayGraph(event){
     
     var timeArr = $("#timeInput").val().replace(/\s+/g, '').split(",").map(function(el){return parseFloat(el)});
     
-    console.log($("#chartSelection")[0].value);
-    
     switch($("#chartSelection")[0].value){
         case "linechart":
             createLineGraph(timeArr);
             break;
         case "scatterplot":
             createScatterPlot(timeArr);
+            break;
+        default:
+            createLineGraph(timeArr);
             break;
     }
 }

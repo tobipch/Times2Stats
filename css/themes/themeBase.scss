@@ -1,3 +1,9 @@
+/*  
+    To update themes run following command
+    <sass --update themes:themes>
+    from css directory
+*/
+
 body{
     background-color: $baseColor;
 }
@@ -10,10 +16,16 @@ h1{
     color: $darkAccent;
 }
 
-#graphBtn{
+.optionBtn{
     background-color: $lightBase;
     color: $darkBase;
     border: 1px solid rgba(0,0,0,0);
+}
+
+.optionBtn:hover, .optionBtn:focus{
+    background-color: $darkBase !important;
+    color: $lightBase !important;
+    border: 1px solid rgba(0,0,0,0) !important;
 }
 
 #infoContainer{
