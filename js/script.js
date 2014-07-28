@@ -25,8 +25,9 @@ $(document).ready(function(){
     $("#chartContainer").dblclick(toggleFullscreen);
     
     //Attach fancySelect Function to Select-Items
-    $("#chartSelection").fancySelect();
     $("#themeSelection").fancySelect();
+    $("#chartSelection").fancySelect();
+    $("#rangeSelection").fancySelect();
 });
 
 ////Change Theme Function////
@@ -44,8 +45,8 @@ function changeTheme(themeName){
 function sampleData(){
     document.getElementById("timeInput").value = "";
     var sampleData = "";
-    for(var i=0;i<=100;i++){
-        var randNum = ((Math.random()*20)+11).toFixed(2);
+    for(var i=0;i<=150;i++){
+        var randNum = ((Math.random()*20)+10).toFixed(2);
         sampleData += randNum.toString() + ", ";
     }
     sampleData = sampleData.substring(0, sampleData.length - 2);
@@ -65,10 +66,23 @@ var fullscreen = false;
 
 
 ////Display Graph////
-function displayGraph(event){
-    event.preventDefault();
+function displayGraph(e){
+    e.preventDefault();
     
+    //Get Times and put them in an Array
     var timeArr = $("#timeInput").val().replace(/\s+/g, '').split(",").map(function(el){return parseFloat(el)});
+    
+    //Process Range Selection (Single/Avg5/Avg12...)
+    rangeSelection(timeArr, function(str_timeArr){
+        timeArr = str_timeArr.split(",");
+        generateGraph(timeArr);
+    });
+}
+
+function generateGraph(timeArr){
+    timeArr = timeArr.map(function(x){
+        return parseFloat(x,10);
+    });
     
     var extremes = {
         min: Math.min.apply(null,timeArr),
@@ -170,6 +184,27 @@ function setDefaultOptions(){
     });
 }
 
+////Process Range Selection////
+function rangeSelection(timeArr,callback){
+    var newTimeArr = [];
+    var rangeSel = $("#rangeSelection")[0].value;
+    var avgNum = parseInt(rangeSel.replace("avg",""),10);
+    if(rangeSel!="single"){rs_avg()}
+    else if(rangeSel=="single"){callback(timeArr.toString())}
+    
+    function rs_avg(){
+        for(var i=0; i<(timeArr.length-avgNum+1);i++){
+            var avgArr = new Array();
+            for(var j=0;j<avgNum;j++){
+                avgArr.push(timeArr[i+j])
+            }
+            newTimeArr.push((avgArr.reduce(function(a,b){return a+b}) / avgArr.length).toFixed(2));
+        }
+        callback(newTimeArr.toString());
+    }
+}
+
+////Create a LINEGRAPH////
 function createLineGraph(timeArr){
     new Highcharts.Chart({
         chart: {

@@ -33,12 +33,24 @@
         <h1>Times 2 Graph<a href="http://tobip.ch" id="byTDP">(by TDP)</a></h1>       
         <div id="inputContainer"><textarea name="Time Input" id="timeInput" cols="100" rows="5" placeholder="Your times..."></textarea></div>
 
-
-        <select class="basic" id="chartSelection">
-            <option value="linechart">Line Chart</option>
-            <option value="scatterplot">Scatter Plot</option>
-            <option value="barchart">Bar Chart</option>
-        </select>
+        <div id="optionContainer">
+            <select class="basic" id="chartSelection">
+                <option value="linechart">Line Chart</option>
+                <option value="scatterplot">Scatter Plot</option>
+                <option value="barchart">Bar Chart</option>
+            </select>
+            
+            <select id="rangeSelection" class="basic">
+                <option value="single">Single Times</option>
+                <option value="avg5">Average of 5</option>
+                <option value="avg12">Average of 12</option>
+                <option value="avg100">Average of 100</option>
+            </select>
+        </div>
+        
+        
+        
+        
         <div id="btnContainer">
             <input type="button" class="btn btn-lg btn-primary optionBtn" value="Go Graph!" id="graphBtn">
             <input type="button" class="btn btn-lg btn-primary optionBtn" value="Sample Data" id="sampleDataBtn">
