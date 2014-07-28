@@ -4,10 +4,17 @@
 /////////////////////////////
 /*-------------------------*/
 $(document).ready(function(){
-    //Load chosen Theme from localstorage
+    //Load chosen Theme from localstorage if any ; else select default theme
+    var defaultTheme = "soulless";
     var storedTheme = localStorage.getItem("chosenTheme");
-    changeTheme(storedTheme);
-    $("#themeSelection").val(storedTheme);
+    if(storedTheme==null){
+        changeTheme(defaultTheme);
+        $("#themeSelection").val(defaultTheme);
+    }
+    else{
+        changeTheme(storedTheme);
+        $("#themeSelection").val(storedTheme);
+    }
     
     //Load Default Chart Options
     setDefaultOptions();
@@ -38,7 +45,7 @@ function sampleData(){
     document.getElementById("timeInput").value = "";
     var sampleData = "";
     for(var i=0;i<=100;i++){
-        var randNum = ((Math.random()*20)+1).toFixed(2);
+        var randNum = ((Math.random()*20)+11).toFixed(2);
         sampleData += randNum.toString() + ", ";
     }
     sampleData = sampleData.substring(0, sampleData.length - 2);
@@ -63,22 +70,43 @@ function displayGraph(event){
     
     var timeArr = $("#timeInput").val().replace(/\s+/g, '').split(",").map(function(el){return parseFloat(el)});
     
+    var extremes = {
+        min: Math.min.apply(null,timeArr),
+        max: Math.max.apply(null,timeArr)
+    };
+    
     switch($("#chartSelection")[0].value){
         case "linechart":
+            timeArr = markPoints(timeArr,extremes);
             createLineGraph(timeArr);
             break;
         case "scatterplot":
+            timeArr = markPoints(timeArr,extremes);
             createScatterPlot(timeArr);
             break;
         case "barchart":
             createBarChart(timeArr);
             break;
         default:
-            createLineGraph(timeArr);
+            createLineGraph(timeArr,extremes);
             break;
     }
     
     chart = $('#chartContainer').highcharts();
+}
+
+////Mark Extreme Points////
+function markPoints(timeArr,extremes){
+    var min_marker = "";
+    var max_marker = "";
+    
+    var min_index = timeArr.indexOf(extremes.min);
+    var max_index = timeArr.indexOf(extremes.max);
+    
+    timeArr[min_index] = {marker:{fillColor: '#2ecc71',lineWidth: 10,lineColor: '#27ae60'},y:timeArr[min_index]};
+    timeArr[max_index] = {marker:{fillColor: '#e74c3c',lineWidth: 10,lineColor: '#c0392b'},y:timeArr[max_index]};
+    
+    return timeArr;
 }
 
 ////Fullscreen the Graph////
@@ -143,7 +171,7 @@ function setDefaultOptions(){
 }
 
 function createLineGraph(timeArr){
-    $("#chartContainer").highcharts({
+    new Highcharts.Chart({
         chart: {
             type: "line"
         },
@@ -168,7 +196,7 @@ function createLineGraph(timeArr){
 
 ////Create a SCATTERCHART////
 function createScatterPlot(timeArr){
-    $("#chartContainer").highcharts({
+    new Highcharts.Chart({
         chart: {
             type: "scatter",
         },
@@ -229,7 +257,7 @@ function createBarChart(timeArr){
     }
     
     
-    $("#chartContainer").highcharts({
+    new Highcharts.Chart({
         chart: {
             type: "column",
         },
