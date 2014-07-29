@@ -34,13 +34,13 @@
         <div id="inputContainer"><textarea name="Time Input" id="timeInput" cols="100" rows="5" placeholder="Your times..."></textarea></div>
 
         <div id="optionContainer">
-            <select class="basic" id="chartSelection">
+            <select class="basic" id="chartSelection" onchange="displayGraph();">
                 <option value="linechart">Line Chart</option>
                 <option value="scatterplot">Scatter Plot</option>
                 <option value="barchart">Bar Chart</option>
             </select>
             
-            <select id="rangeSelection" class="basic">
+            <select id="rangeSelection" class="basic" onchange="displayGraph();">
                 <option value="single">Single Times</option>
                 <option value="avg5">Average of 5</option>
                 <option value="avg12">Average of 12</option>

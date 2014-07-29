@@ -19,7 +19,7 @@ $(document).ready(function(){
     //Load Default Chart Options
     setDefaultOptions();
     
-    //Trigger on "Go Graph"-Button-Click
+    //Render Triggers
     $("#graphBtn").click(displayGraph);
     $("#sampleDataBtn").click(sampleData);
     $("#chartContainer").dblclick(toggleFullscreen);
@@ -67,7 +67,7 @@ var fullscreen = false;
 
 ////Display Graph////
 function displayGraph(e){
-    e.preventDefault();
+    if(e){e.preventDefault()};
     
     //Get Times and put them in an Array
     var timeArr = $("#timeInput").val().replace(/\s+/g, '').split(",").map(function(el){return parseFloat(el)});
