@@ -189,15 +189,32 @@ function rangeSelection(timeArr,callback){
     var newTimeArr = [];
     var rangeSel = $("#rangeSelection")[0].value;
     var avgNum = parseInt(rangeSel.replace("avg",""),10);
-    if(rangeSel!="single"){rs_avg()}
-    else if(rangeSel=="single"){callback(timeArr.toString())}
+    var cutOffNr = Math.ceil(avgNum/100*5);
+    var counter = 0;
     
+    if(rangeSel!="single"){rs_avg()}    
+    else if(rangeSel=="single"){callback(timeArr.toString())}
     function rs_avg(){
+        //Calculate Averages
         for(var i=0; i<(timeArr.length-avgNum+1);i++){
             var avgArr = new Array();
-            for(var j=0;j<avgNum;j++){
-                avgArr.push(timeArr[i+j])
+            for(var l=0;l<avgNum;l++){
+                avgArr.push(timeArr[i+l]);
             }
+            
+            counter++;
+            
+            //Cut Off Best/Worst 5%
+            for(var k=0;k<cutOffNr;k++){
+                var maxTime = Math.max.apply(null, avgArr);
+                var ioMax = avgArr.indexOf(maxTime);
+                avgArr.splice(ioMax,1);
+                
+                var minTime = Math.min.apply(null, avgArr);
+                var ioMin = avgArr.indexOf(minTime);
+                avgArr.splice(ioMin,1);
+            }
+            
             newTimeArr.push((avgArr.reduce(function(a,b){return a+b}) / avgArr.length).toFixed(2));
         }
         callback(newTimeArr.toString());
