@@ -5,7 +5,7 @@
     from css directory
 */
 body {
-  background-color: #6d7e8c; }
+  background-color: #7c838b; }
 
 #byTDP {
   color: #3c4b59; }
@@ -32,6 +32,12 @@ h1 {
 
 .infoLink:hover {
   color: #3c4b59; }
+
+#tabs > li > a {
+  outline: 0; }
+
+#tabs > li.active > a:hover {
+  box-shadow: none; }
 
 /*Additional Info Color*/
 div.fancy-select {
@@ -79,4 +85,4 @@ div.fancy-select ul.options li.selected {
 /*li font-color on hover*/
 div.fancy-select ul.options li.hover {
   background-color: #3c4b59;
-  color: #6d7e8c; }
+  color: #7c838b; }

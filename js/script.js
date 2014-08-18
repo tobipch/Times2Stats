@@ -1,3 +1,23 @@
+////Global Variables////
+var chart;
+var chartHeight;
+var fullscreen = false;
+var timeArr;
+
+////Prototype-Functions////
+Array.prototype.getTimeArr = function(){
+    var newArr = [];
+    for(var i=0;i<this.length;i++){
+        if(this[i] != 0 && this[i] != "DNF" && !/(\d{1,2}:)?\d{1,2}(.\d{1,2})?\+2/.test(this[i])){
+            newArr.push(this[i]);
+        }
+        else if(/(\d{1,2}:)?\d{1,2}(.\d{1,2})?\+2/.test(this[i])){
+            newArr.push(parseFloat(this[i].replace("+2",""),10)+2);
+        }
+    }
+    return newArr;      
+}
+
 /*-------------------------*/
 /////////////////////////////
 ///////DOCUMENT START////////
@@ -16,6 +36,18 @@ $(document).ready(function(){
         $("#themeSelection").val(storedTheme);
     }
     
+    getTimeArr();
+    updateStats();
+    
+    //Initialize Tooltips
+    $("[data-toggle='tooltip']").tooltip({
+        placement: "left",
+        delay: {
+            show: 400,
+            hide: 50
+        }
+    });
+    
     //Load Default Chart Options
     setDefaultOptions();
     
@@ -23,6 +55,17 @@ $(document).ready(function(){
     $("#graphBtn").click(displayGraph);
     $("#sampleDataBtn").click(sampleData);
     $("#chartContainer").dblclick(toggleFullscreen);
+    $("#statTabLink").click(function(){
+        getTimeArr();
+        updateStats();
+    });
+    
+    $("#timeInput").on("change keydown paste mouseup",function(){
+        setTimeout(function(){
+            getTimeArr();
+            updateStats();
+        },5);
+    });
     
     //Attach fancySelect Function to Select-Items
     $("#themeSelection").fancySelect();
@@ -45,12 +88,256 @@ function changeTheme(themeName){
 function sampleData(){
     document.getElementById("timeInput").value = "";
     var sampleData = "";
-    for(var i=0;i<=150;i++){
+    for(var i=0;i<150;i++){
         var randNum = ((Math.random()*20)+10).toFixed(2);
         sampleData += randNum.toString() + ", ";
     }
     sampleData = sampleData.substring(0, sampleData.length - 2);
     document.getElementById("timeInput").value = sampleData;
+}
+
+function getTimeArr(){
+    //Get Times and put them in an Array
+    timeArr = $("#timeInput").val().replace(/\s+/g, '').split(",").map(function(el){
+        if(el=="DNF") return "DNF";
+        
+        else if(/(\d{1,2}:)?\d{1,2}(.\d{1,2})?\+2/.test(el)){
+            if(/\d{1,2}:\d{1,2}.\d{1,2}/.test(el)){
+                var tempStr = el.replace("+2","");
+                return minToSec(el)+"+2";
+            }
+            else{
+                return el;
+            }
+        }
+        
+        else if(/\d{1,2}:\d{1,2}.\d{1,2}/.test(el))return parseFloat(minToSec(el));
+        
+        else {return parseFloat(el)}
+    });
+    if(isNaN(timeArr[timeArr.length-1]))timeArr.pop();
+}
+
+function minToSec(minInput){
+    var parts = minInput.split(':'),
+        minutes = +parts[0],
+        seconds = +parts[1];
+    return (minutes * 60 + seconds).toFixed(2);
+}
+
+function formatTime(seconds){
+    var hours = Math.floor(seconds/3600);
+    var minutes = Math.floor((seconds-hours*3600)/60);
+    var seconds = (seconds - hours*3600 - minutes*60).toFixed(2);
+    var res = "";
+    
+    if(hours > 0)res += hours.toString() + "h, ";
+    
+    if(minutes > 0)res += minutes.toString() + "m ";
+    
+    if(minutes>0)res+="and ";
+    res += seconds.toString() + "s";
+    
+    return res;
+}
+
+/*-------------------------*/
+/////////////////////////////
+/////STATISTIC-FUNCTIONS/////
+/////////////////////////////
+/*-------------------------*/
+////Update all Statistics////
+function updateStats(){
+    $("#stats_numSolves").text(getNumSolves().toString());
+    $("#stats_bestTime").text(getBestTime().toString());
+    $("#stats_worstTime").text(getWorstTime().toString());
+    $("#stats_numDNF").text(getNumDNF().toString());
+    $("#stats_numPlusTwo").text(getNumberPlusTwo().toString());
+    
+    $("#stats_avgTotal").text(getTotalAverage().toString());
+    $("#stats_meanTotal").text(getTotalMean().toString());
+    $("#stats_medianTotal").text(getTotalMedian().toString());
+    $("#stats_varianceTotal").text(getTotalVariance().toString());
+    $("#stats_standardDeviation").text(getTotalStandardDeviation().toString());    
+    $("#stats_totalTime").text(getTotalTime());
+    
+    $("#stats_avg3Best").text(getAverage(3,true));
+    $("#stats_avg3Worst").text(getAverage(3,false));
+    $("#stats_avg5Best").text(getAverage(5,true));
+    $("#stats_avg5Worst").text(getAverage(5,false));
+    $("#stats_avg12Best").text(getAverage(12,true));
+    $("#stats_avg12Worst").text(getAverage(12,false));
+    $("#stats_avg100Best").text(getAverage(100,true));
+    $("#stats_avg100Worst").text(getAverage(100,false));
+}
+
+////Get Total Number of Solves////
+function getNumSolves(){
+    return timeArr.length;
+}
+
+////Get Lowest Time of All////
+function getBestTime(){
+    var newTimeArr = timeArr.getTimeArr(true);
+    if(newTimeArr.length==0)return formatTime(0);
+    return formatTime(Math.min.apply(null, newTimeArr));
+}
+
+////Get Highest Time of All////
+function getWorstTime(){
+    var newTimeArr = timeArr.getTimeArr(true);
+    if(newTimeArr.length==0)return formatTime(0);
+    return formatTime(Math.max.apply(null, newTimeArr));
+}
+
+////Get Total Number of DNF's////
+function getNumDNF(){
+    var DNFcounter = 0;
+    timeArr.map(function(time){
+        if(time=="DNF")DNFcounter++;
+    });
+    return DNFcounter;
+}
+
+////Get Total Number of +2's////
+function getNumberPlusTwo(){
+    var plusTwoCounter = 0;
+    timeArr.map(function(time){
+        if(/(\d{1,2}:)?\d{1,2}(.\d{1,2})?\+2/.test(time))plusTwoCounter++;
+    });
+    return plusTwoCounter;
+}
+
+////Get Total Time////
+function getTotalTime(){
+    var newTimeArr = timeArr.getTimeArr();
+    if(newTimeArr.length==0)return formatTime(0);
+    var sum = newTimeArr.reduce(function(a,b){return a+b;});
+    return formatTime(sum);
+}
+
+////Get Total Mean////
+function getTotalMean(){
+    var newTimeArr = timeArr.getTimeArr();
+    if(newTimeArr.length==0 || isNaN(newTimeArr[0]))return formatTime(0);
+    var sum = newTimeArr.reduce(function(a,b){return a+b;});
+    return formatTime((sum / newTimeArr.length).toFixed(2));
+}
+
+////Get Total Average////
+function getTotalAverage(){
+    var newTimeArr = timeArr.getTimeArr();
+    var cutOffNr = newTimeArr.length/100*5;
+    
+    if(newTimeArr.length<=2)return formatTime(0);
+    
+    for(var k=0;k<cutOffNr;k++){
+        var maxTime = Math.max.apply(null, newTimeArr);
+        var ioMax = newTimeArr.indexOf(maxTime);
+        newTimeArr.splice(ioMax,1);
+
+        var minTime = Math.min.apply(null, newTimeArr);
+        var ioMin = newTimeArr.indexOf(minTime);
+        newTimeArr.splice(ioMin,1);
+    }
+    
+    var sum = newTimeArr.reduce(function(a,b){return a+b});
+    var res = (sum/newTimeArr.length).toFixed(2);
+    return formatTime(res);
+}
+
+////Get Total Median////
+function getTotalMedian(){
+    var newTimeArr = timeArr.getTimeArr();
+    var arrLen = newTimeArr.length;
+    
+    newTimeArr.sort(function(a,b){return a-b});
+    medianArr = [];
+    
+    if(arrLen%2==0 && arrLen>0){
+        medianArr = newTimeArr.slice(Math.floor(arrLen/2)-1,Math.ceil(arrLen/2)+1);
+    }
+    else{
+        medianArr.push(newTimeArr[Math.ceil(arrLen/2)-1]);
+    }
+    
+    var res = medianArr.length==2?medianArr.reduce(function(a,b){return a+b})/2:medianArr[0];
+    return formatTime(res);
+}
+
+////Get Total Variance////
+function getTotalVariance(){
+    var newTimeArr = timeArr.getTimeArr();
+    if(newTimeArr.length==0 || isNaN(newTimeArr[0]))return formatTime(0);
+    var mean = (newTimeArr.reduce(function(a,b){return a+b;}))/newTimeArr.length;
+    var varSum = 0;
+    
+    for(var i=0;i<=newTimeArr.length-1;i++){
+        varSum += Math.pow(newTimeArr[i]-mean,2);
+    }
+    
+    var res = varSum/newTimeArr.length;
+    
+    return formatTime(res);
+}
+
+////Get Total Standard Deviation////
+function getTotalStandardDeviation(){
+    var newTimeArr = timeArr.getTimeArr();
+    if(newTimeArr.length==0 || isNaN(newTimeArr[0]))return formatTime(0);
+    var mean = (newTimeArr.reduce(function(a,b){return a+b;}))/newTimeArr.length;
+    var varSum = 0;
+    
+    for(var i=0;i<=newTimeArr.length-1;i++){
+        varSum += Math.pow(newTimeArr[i]-mean,2);
+    }
+    
+    var variance = varSum/newTimeArr.length;
+    
+    var res = Math.sqrt(variance);
+    
+    return formatTime(res);
+}
+
+////Get Total Mean and cut off best and worst 5%////
+function getAverage(getAvgNum, best){
+    getTimeArr();
+    var l_timeArr = timeArr.getTimeArr();
+    var worstTime = 0.00;
+    var bestTime;
+    
+    //Parse every item in array to float
+    l_timeArr = l_timeArr.map(function(a){return parseFloat(a)});
+    
+    console.log(l_timeArr);
+    
+    for(var i_getAvg=0; i_getAvg<(l_timeArr.length-getAvgNum+1);i_getAvg++){
+        var getAvg_avgArr = new Array();
+        var getAvg_cutOffNr = Math.ceil(getAvgNum/100*5);
+        
+        for(var l_getAvg=0;l_getAvg<getAvgNum;l_getAvg++){
+            getAvg_avgArr.push(l_timeArr[i_getAvg+l_getAvg]);
+        }
+        
+        //Cut Off Best/Worst 5%
+        for(var k_getAvg=0;k_getAvg<getAvg_cutOffNr;k_getAvg++){
+            var getAvg_maxTime = Math.max.apply(null, getAvg_avgArr);
+            var gioMax = getAvg_avgArr.indexOf(getAvg_maxTime);
+            getAvg_avgArr.splice(gioMax,1);
+
+            var getAvg_minTime = Math.min.apply(null, getAvg_avgArr);
+            var gioMin = getAvg_avgArr.indexOf(getAvg_minTime);
+            getAvg_avgArr.splice(gioMin,1);
+        }
+        
+        
+        var actualAvg = (getAvg_avgArr.reduce(function(a,b){return a+b}) / getAvg_avgArr.length);
+        
+        if(i_getAvg==0 || actualAvg<bestTime)bestTime=parseFloat(actualAvg.toFixed(2));
+        if(actualAvg>worstTime)worstTime=parseFloat(actualAvg.toFixed(2));
+        
+    }
+    return best?bestTime:worstTime;
 }
 
 /*-------------------------*/
@@ -59,19 +346,12 @@ function sampleData(){
 /////////////////////////////
 /*-------------------------*/
 
-////Global Variables////
-var chart;
-var chartHeight;
-var fullscreen = false;
-
-
 ////Display Graph////
 function displayGraph(e){
-    if(e){e.preventDefault()};
+    getTimeArr();    
+    updateStats();
     
-    //Get Times and put them in an Array
-    var timeArr = $("#timeInput").val().replace(/\s+/g, '').split(",").map(function(el){return parseFloat(el)});
-    
+    if(e){e.preventDefault()};    
     //Process Range Selection (Single/Avg5/Avg12...)
     rangeSelection(timeArr, function(str_timeArr){
         timeArr = str_timeArr.split(",");
@@ -79,30 +359,38 @@ function displayGraph(e){
     });
 }
 
+////Function to generate the Graph////
 function generateGraph(timeArr){
-    timeArr = timeArr.map(function(x){
+    var l_timeArr = timeArr.map(function(x){
+        var x_str = x.toString();
+        if(x_str=="DNF")return 0.00;
+        else if(/(\d{1,2}:)?\d{1,2}(.\d{1,2})?\+2/.test(x_str)){
+            var rawTime = x_str.replace("+2","");
+            if(/\d{1,2}:\d{1,2}.\d{1,2}/.test(rawTime)) return parseFloat(minToSec(rawTime),10)+2;
+            else {return parseFloat(rawTime,10)+2}
+        }
         return parseFloat(x,10);
     });
     
     var extremes = {
-        min: Math.min.apply(null,timeArr),
-        max: Math.max.apply(null,timeArr)
+        min: Math.min.apply(null,l_timeArr.getTimeArr()),
+        max: Math.max.apply(null,l_timeArr.getTimeArr())
     };
     
     switch($("#chartSelection")[0].value){
         case "linechart":
-            timeArr = markPoints(timeArr,extremes);
+            timeArr = markPoints(l_timeArr,extremes);
             createLineGraph(timeArr);
             break;
         case "scatterplot":
-            timeArr = markPoints(timeArr,extremes);
+            timeArr = markPoints(l_timeArr,extremes);
             createScatterPlot(timeArr);
             break;
         case "barchart":
-            createBarChart(timeArr);
+            createBarChart(l_timeArr);
             break;
         default:
-            createLineGraph(timeArr,extremes);
+            createLineGraph(l_timeArr,extremes);
             break;
     }
     
@@ -128,11 +416,11 @@ function toggleFullscreen(){
     if(!fullscreen){
         chartHeight = chart.chartHeight;
         chart.setSize(
-           $(document).width(), 
-           $(document).height(),
+           $(window).width(), 
+           $(window).height(),
            false
         );
-        $("#chartContainer").css("position", "absolute").css("top","0px").css("margin","0%");
+        $("#chartContainer").css("position", "absolute").css("top","0px").css("margin","0").css("padding","0");
         $(".highcharts-container").css("margin","0%");
         $(".highcharts-container svg").css("margin","0%");
         
@@ -144,8 +432,8 @@ function toggleFullscreen(){
            chartHeight,
            false
         );
-        $("#chartContainer").css("position", "").css("top","").css("margin","");
-        $(".highcharts-container").css("margin","0% auto");
+        $("#chartContainer").css("position", "").css("top","").css("margin","").css("padding","0px 15px");
+        $(".highcharts-container").css("margin","1.5% auto");
         $(".highcharts-container svg").css("margin","");
         
         fullscreen = false;

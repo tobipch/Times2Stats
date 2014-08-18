@@ -41,6 +41,17 @@ h1{
     color: $darkBase;
 }
 
+//////TABS//////
+
+#tabs > li > a{
+    outline: 0;
+}
+
+#tabs > li.active > a:hover{
+    box-shadow: none;
+}
+
+//////FANCYSELECT//////
 /*Additional Info Color*/
 div.fancy-select {
 	color: $darkBase;

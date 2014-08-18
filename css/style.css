@@ -7,7 +7,6 @@
     font-family: OpenSans_Regular;
     src:url(../assets/fonts/OpenSans-Regular.ttf);
 }
-
 h1{
     font-family: OpenSans_Bold;
     font-size: 70px;
@@ -19,15 +18,10 @@ h1{
     letter-spacing: -0.5px;
 }
 
-.fancySelect {
-    width: 50% !important;
+.fancy-select{
+    margin: 20px 0px;
 }
 
-#chartContainer{
-    width: 100%;
-    height: 30%;
-    margin: 4% auto;
-}
 #inputContainer {
     margin: 30px auto;
     text-align: center;
@@ -57,4 +51,65 @@ h1{
 #infoContainer {
     top: 0px;
     position: relative;
+}
+
+ .selectBig ~ .trigger{
+    width: 80% !important;
+}
+
+ .selectBig ~ .options{
+    width: 80% !important;
+}
+
+#tabs > li > a,
+#tabs > li > a:hover,
+#tabs > li > a:link,
+#tabs > li > a:visited,
+#tabs > li > a:active{
+  color: #000;
+}
+
+#tabs{
+    background-color: #f5f5f5;
+}
+
+#tabs > li > a{
+    font-size: 18px;
+    border: none;
+    border-radius: 0;
+}
+
+#tabs > li.active > a,
+#tabs > li.active:hover > a{
+    background-color: #4b4b4b;
+    color: #f5f5f5;
+}
+
+#tabs > li:hover > a{
+    background-color: #c9c9c9;
+    color: #343434;
+}
+
+.nav-pills > li > a{
+    border-radius: 0;
+}
+.statTable {
+    background-color: rgba(255,255,255,0.8);
+    margin: 5% auto;
+    width: auto;
+}
+
+.statTable > tbody > tr > td,
+.statTable > tbody > tr > th{
+    padding: 18px 36px;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+.statTable > tbody > tr > th{
+    background-color: #efefef;
+}
+
+.statField {
+    font-weight: bold;
 }

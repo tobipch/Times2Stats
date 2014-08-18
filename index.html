@@ -2,8 +2,9 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Times 2 Graph</title>
+        <title>Times 2 Stats</title>
         <script src="js/libs/jquery-2.1.1.min.js"></script>
+        <script src="js/libs/bootstrap.min.js"></script>
         <script src="js/libs/highcharts.js"></script>
         <script src="js/libs/highchart_modules/exporting.js"></script>
         <script src="js/libs/fancySelect.js"></script>
@@ -31,32 +32,132 @@
             <option value="spring">Spring</option>
         </select>
         
-        <h1>Times 2 Graph<a href="http://tobip.ch" id="byTDP">(by TDP)</a></h1>       
-        <div id="inputContainer"><textarea name="Time Input" id="timeInput" cols="100" rows="5" placeholder="Your times..."></textarea></div>
+        <h1>Times 2 Stats<a href="http://tobip.ch" id="byTDP">(by TDP)</a></h1>       
+        <div id="inputContainer"><textarea name="Time Input" id="timeInput" cols="125" rows="6" placeholder="Your times..."></textarea></div>
+        
+        <ul id="tabs" class="nav nav-tabs nav-justified" data-tabs="tabs">
+            <li class="active"><a href="#graphTab" data-toggle="tab">Graphs</a></li>
+            <li><a href="#statTab" data-toggle="tab" id="statTabLink">Stats</a></li>
+        </ul>
+        
+        <div class="tab-content" id="tabContentContainer">
+            <div class="tab-pane active" id="graphTab">
+                <div id="optionContainer" class="col-md-3">
+                    <select class="basic selectBig" id="chartSelection" onchange="displayGraph();">
+                        <option value="linechart">Line Chart</option>
+                        <option value="scatterplot">Scatter Plot</option>
+                        <option value="barchart">Bar Chart</option>
+                    </select>
 
-        <div id="optionContainer">
-            <select class="basic" id="chartSelection" onchange="displayGraph();">
-                <option value="linechart">Line Chart</option>
-                <option value="scatterplot">Scatter Plot</option>
-                <option value="barchart">Bar Chart</option>
-            </select>
+                    <select id="rangeSelection" class="basic selectBig" onchange="displayGraph();">
+                        <option value="single">Single Times</option>
+                        <option value="avg5">Average of 5</option>
+                        <option value="avg12">Average of 12</option>
+                        <option value="avg100">Average of 100</option>
+                    </select>
+                    
+                    <div id="btnContainer">
+                        <input type="button" class="btn btn-lg btn-primary optionBtn" value="Go Graph!" id="graphBtn">
+                        <input type="button" class="btn btn-lg btn-primary optionBtn" value="Sample Data" id="sampleDataBtn">
+                    </div>
+                </div>
+
+                <div id="chartContainer" class="col-md-9"></div>
+            </div>
             
-            <select id="rangeSelection" class="basic" onchange="displayGraph();">
-                <option value="single">Single Times</option>
-                <option value="avg5">Average of 5</option>
-                <option value="avg12">Average of 12</option>
-                <option value="avg100">Average of 100</option>
-            </select>
+            <div class="tab-pane" id="statTab">
+                <div class="col-md-4">
+                    <table class="table table-hover table-bordered statTable">
+                        <tr>
+                            <th>Statistic</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td><abbr title="Same as number of times" data-toggle="tooltip">Number of Solves</abbr></td>
+                            <td id="stats_numSolves" class="statField"></td>
+                        </tr>
+                        <tr>
+                            <td><abbr title="Lowest Time" data-toggle="tooltip">Best Time</abbr></td>
+                            <td id="stats_bestTime" class="statField"></td>
+                        </tr>
+                        <tr>
+                            <td><abbr title="Highest Time" data-toggle="tooltip">Worst Time</abbr></td>
+                            <td id="stats_worstTime" class="statField"></td>
+                        </tr>
+                        <tr>
+                            <td><abbr title="Sum of all DNF's" data-toggle="tooltip">Number of DNF's</abbr></td>
+                            <td id="stats_numDNF" class="statField"></td>
+                        </tr>
+                        <tr>
+                            <td><abbr title="Sum of all +2's" data-toggle="tooltip">Number of +2's</abbr></td>
+                            <td id="stats_numPlusTwo" class="statField"></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="col-md-4">
+                    <table class="table table-hover table-bordered statTable">
+                        <tr>
+                            <th>Statistic</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td><abbr title="Average minus 5% best and worst" data-toggle="tooltip">Total Average</abbr></td>
+                            <td id="stats_avgTotal" class="statField"></td>
+                        </tr>
+                        <tr>
+                            <td><abbr title="Mean without deductions" data-toggle="tooltip">Total Mean</abbr></td>
+                            <td id="stats_meanTotal" class="statField"></td>
+                        </tr>
+                        <tr>
+                            <td><abbr title="Midpoint of times" data-toggle="tooltip">Total Median</abbr></td>
+                            <td id="stats_medianTotal" class="statField"></td>
+                        </tr>
+                        <tr>
+                            <td><abbr title="Variation of times" data-toggle="tooltip">Total Variance</abbr></td>
+                            <td id="stats_varianceTotal" class="statField"></td>
+                        </tr>
+                        <tr>
+                            <td><abbr title="Deviation of the times from the average" data-toggle="tooltip">Standard Deviation</abbr></td>
+                            <td id="stats_standardDeviation" class="statField"></td>
+                        </tr>
+                        <tr>
+                            <td><abbr title="All times summed up" data-toggle="tooltip">Total Time</abbr></td>
+                            <td id="stats_totalTime" class="statField"></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="col-md-4">
+                    <table class="table table-hover table-bordered statTable">
+                        <tr>
+                            <th>Time-Area</th>
+                            <th>Best</th>
+                            <th>Worst</th>
+                        </tr>
+                        <tr>
+                            <td><abbr title="Best and worst Average of 3" data-toggle="tooltip">Average of 3</abbr></td>
+                            <td id="stats_avg3Best" class="statField"></td>
+                            <td id="stats_avg3Worst" class="statField"></td>
+                        </tr>
+                        <tr>
+                            <td><abbr title="Best and worst Average of 5" data-toggle="tooltip">Average of 5</abbr></td>
+                            <td id="stats_avg5Best" class="statField"></td>
+                            <td id="stats_avg5Worst" class="statField"></td>
+                        </tr>
+                        <tr>
+                            <td><abbr title="Best and worst Average of 12" data-toggle="tooltip">Average of 12</abbr></td>
+                            <td id="stats_avg12Best" class="statField"></td>
+                            <td id="stats_avg12Worst" class="statField"></td>
+                        </tr>
+                        <tr>
+                            <td><abbr title="Bets and worst Average of 100" data-toggle="tooltip">Average of 100</abbr></td>
+                            <td id="stats_avg100Best" class="statField"></td>
+                            <td id="stats_avg100Worst" class="statField"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
-        
-        
-        
-        
-        <div id="btnContainer">
-            <input type="button" class="btn btn-lg btn-primary optionBtn" value="Go Graph!" id="graphBtn">
-            <input type="button" class="btn btn-lg btn-primary optionBtn" value="Sample Data" id="sampleDataBtn">
-        </div>
-
-        <div id="chartContainer"></div>
     </body>
 </html>

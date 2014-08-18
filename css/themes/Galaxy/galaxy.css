@@ -33,6 +33,12 @@ h1 {
 .infoLink:hover {
   color: #5a7e8c; }
 
+#tabs > li > a {
+  outline: 0; }
+
+#tabs > li.active > a:hover {
+  box-shadow: none; }
+
 /*Additional Info Color*/
 div.fancy-select {
   color: #5a7e8c; }
