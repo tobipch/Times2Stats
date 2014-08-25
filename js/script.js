@@ -2,17 +2,17 @@
 var chart;
 var chartHeight;
 var fullscreen = false;
-var timeArr;
+var timeArr = [];
 
 ////Prototype-Functions////
 Array.prototype.getTimeArr = function(){
     var newArr = [];
     for(var i=0;i<this.length;i++){
-        if(this[i] != 0 && this[i] != "DNF" && !/(\d{1,2}:)?\d{1,2}(.\d{1,2})?\+2/.test(this[i])){
+        if(this[i] != 0 && this[i] != "DNF" && !/(\d{1,2}:)?\d{1,2}(.\d{1,2})?\+2?/.test(this[i])){
             newArr.push(this[i]);
         }
-        else if(/(\d{1,2}:)?\d{1,2}(.\d{1,2})?\+2/.test(this[i])){
-            newArr.push(parseFloat(this[i].replace("+2",""),10)+2);
+        else if(/\d{1,}.\d{1,}\+2?/.test(this[i])){
+            newArr.push(parseFloat(this[i].replace(/\+2?/,""),10)+2);
         }
     }
     return newArr;      
@@ -59,7 +59,6 @@ $(document).ready(function(){
         getTimeArr();
         updateStats();
     });
-    
     $("#timeInput").on("change keydown paste mouseup",function(){
         setTimeout(function(){
             getTimeArr();
@@ -73,6 +72,12 @@ $(document).ready(function(){
     $("#rangeSelection").fancySelect();
 });
 
+
+/*-------------------------*/
+/////////////////////////////
+/////ESSENTIAL FUNCTIONS/////
+/////////////////////////////
+/*-------------------------*/
 ////Change Theme Function////
 function changeTheme(themeName){
     var filename = themeName || $("#themeSelection")[0].value;
@@ -96,14 +101,16 @@ function sampleData(){
     document.getElementById("timeInput").value = sampleData;
 }
 
+////Get Times from Input Area////
 function getTimeArr(){
     //Get Times and put them in an Array
     timeArr = $("#timeInput").val().replace(/\s+/g, '').split(",").map(function(el){
-        if(el=="DNF") return "DNF";
         
-        else if(/(\d{1,2}:)?\d{1,2}(.\d{1,2})?\+2/.test(el)){
+        if(/dnf/ig.test(el)) return "DNF";
+        
+        else if(/(\d{1,2}:)?\d{1,2}(.\d{1,2})?\+2?/.test(el)){
             if(/\d{1,2}:\d{1,2}.\d{1,2}/.test(el)){
-                var tempStr = el.replace("+2","");
+                var tempStr = el.replace(/\+2?/,"");
                 return minToSec(el)+"+2";
             }
             else{
@@ -114,17 +121,31 @@ function getTimeArr(){
         else if(/\d{1,2}:\d{1,2}.\d{1,2}/.test(el))return parseFloat(minToSec(el));
         
         else {return parseFloat(el)}
+        
     });
-    if(isNaN(timeArr[timeArr.length-1]))timeArr.pop();
+    
+    //Delete Comma at the end if there is one
+    if(isNaN(timeArr[timeArr.length-1]) && typeof timeArr[timeArr.length-1]!="string")timeArr.pop();
 }
 
+////Convert minutes to seconds////
 function minToSec(minInput){
-    var parts = minInput.split(':'),
+    if(/(\d{1,2}:){2}(\d{1,2}.)(\d{1,2})/.test(minInput)){
+        var parts = minInput.split(':'),
+        hours = +parts[0],
+        minutes = +parts[1],
+        seconds = +parts[2];
+        return (hours * 3600 + minutes * 60 + seconds).toFixed(2);
+    }
+    else{
+        var parts = minInput.split(':'),
         minutes = +parts[0],
         seconds = +parts[1];
-    return (minutes * 60 + seconds).toFixed(2);
+        return (minutes * 60 + seconds).toFixed(2);
+    }
 }
 
+////Format inputted seconds to a nice time display////
 function formatTime(seconds){
     var hours = Math.floor(seconds/3600);
     var minutes = Math.floor((seconds-hours*3600)/60);
@@ -177,10 +198,11 @@ function getNumSolves(){
 }
 
 ////Get Lowest Time of All////
-function getBestTime(){
+function getBestTime(raw){
     var newTimeArr = timeArr.getTimeArr(true);
     if(newTimeArr.length==0)return formatTime(0);
-    return formatTime(Math.min.apply(null, newTimeArr));
+    var res = Math.min.apply(null, newTimeArr);
+    return raw?res:formatTime(res);
 }
 
 ////Get Highest Time of All////
@@ -203,7 +225,7 @@ function getNumDNF(){
 function getNumberPlusTwo(){
     var plusTwoCounter = 0;
     timeArr.map(function(time){
-        if(/(\d{1,2}:)?\d{1,2}(.\d{1,2})?\+2/.test(time))plusTwoCounter++;
+        if(/(\d{1,2}:)?\d{1,2}(.\d{1,2})?\+2?/.test(time))plusTwoCounter++;
     });
     return plusTwoCounter;
 }
@@ -309,8 +331,6 @@ function getAverage(getAvgNum, best){
     //Parse every item in array to float
     l_timeArr = l_timeArr.map(function(a){return parseFloat(a)});
     
-    console.log(l_timeArr);
-    
     for(var i_getAvg=0; i_getAvg<(l_timeArr.length-getAvgNum+1);i_getAvg++){
         var getAvg_avgArr = new Array();
         var getAvg_cutOffNr = Math.ceil(getAvgNum/100*5);
@@ -337,7 +357,7 @@ function getAverage(getAvgNum, best){
         if(actualAvg>worstTime)worstTime=parseFloat(actualAvg.toFixed(2));
         
     }
-    return best?bestTime:worstTime;
+    return formatTime(best?bestTime:worstTime);
 }
 
 /*-------------------------*/
@@ -364,13 +384,16 @@ function generateGraph(timeArr){
     var l_timeArr = timeArr.map(function(x){
         var x_str = x.toString();
         if(x_str=="DNF")return 0.00;
-        else if(/(\d{1,2}:)?\d{1,2}(.\d{1,2})?\+2/.test(x_str)){
+        else if(/(\d{1,2}:)?\d{1,2}(.\d{1,2})?\+2?/.test(x_str)){
             var rawTime = x_str.replace("+2","");
-            if(/\d{1,2}:\d{1,2}.\d{1,2}/.test(rawTime)) return parseFloat(minToSec(rawTime),10)+2;
+            if(/(\d{1,2}:){1,2}(\d{1,2}.)(\d{1,2})/.test(rawTime)) return parseFloat(minToSec(rawTime),10)+2;
             else {return parseFloat(rawTime,10)+2}
         }
         return parseFloat(x,10);
     });
+    
+    //Filter out the 0.00 (DNF) times
+    l_timeArr = l_timeArr.filter(function(e){if(e!=0.00)return true});
     
     var extremes = {
         min: Math.min.apply(null,l_timeArr.getTimeArr()),
@@ -402,11 +425,14 @@ function markPoints(timeArr,extremes){
     var min_marker = "";
     var max_marker = "";
     
-    var min_index = timeArr.indexOf(extremes.min);
-    var max_index = timeArr.indexOf(extremes.max);
-    
-    timeArr[min_index] = {marker:{fillColor: '#2ecc71',lineWidth: 10,lineColor: '#27ae60'},y:timeArr[min_index]};
-    timeArr[max_index] = {marker:{fillColor: '#e74c3c',lineWidth: 10,lineColor: '#c0392b'},y:timeArr[max_index]};
+    for(var i=0;i<timeArr.length;i++){
+        if(timeArr[i] == extremes.min){
+            timeArr[i] = {marker:{fillColor: '#2ecc71',lineWidth: 10,lineColor: '#27ae60'},y:timeArr[i]};
+        }
+        else if(timeArr[i] == extremes.max){
+            timeArr[i] = {marker:{fillColor: '#e74c3c',lineWidth: 10,lineColor: '#c0392b'},y:timeArr[i]};
+        }
+    }
     
     return timeArr;
 }
@@ -440,7 +466,6 @@ function toggleFullscreen(){
     }
 }
 
-
 ////The DEFAULT-Chart////
 function setDefaultOptions(){
     Highcharts.setOptions({
@@ -459,6 +484,10 @@ function setDefaultOptions(){
         colors: ["#00CF99", "#B2E097"],
 
         title: {text: ""},
+        
+        tooltip: {
+            valueSuffix: " Seconds"
+        },
 
         subtitle: {text: "Double-Click for Fullscreen"},
 
@@ -487,7 +516,14 @@ function rangeSelection(timeArr,callback){
         for(var i=0; i<(timeArr.length-avgNum+1);i++){
             var avgArr = new Array();
             for(var l=0;l<avgNum;l++){
-                avgArr.push(timeArr[i+l]);
+                if(timeArr[i+l]!="DNF"){
+                    if(/\d{1,}.\d{1,}\+2?/.test(timeArr[i+l])){
+                        avgArr.push(parseFloat(timeArr[i+l])+2);
+                    }
+                    else{
+                        avgArr.push(timeArr[i+l]);
+                    }
+                }
             }
             
             counter++;
@@ -529,6 +565,7 @@ function createLineGraph(timeArr){
         },
 
         series:[{
+            name: "Time",
             data: timeArr
         }]
     });
@@ -554,11 +591,11 @@ function createScatterPlot(timeArr){
         },
 
         series:[{
+            name: "Time",
             data: timeArr
         }]
     });
 }
-
 
 ////Create a BARCHART////
 function createBarChart(timeArr){
@@ -601,7 +638,11 @@ function createBarChart(timeArr){
         chart: {
             type: "column",
         },
-
+        
+        tooltip: {
+            valueSuffix: ""
+        },
+        
         xAxis: {
             title:{
                 text: "Time Range"
@@ -616,6 +657,7 @@ function createBarChart(timeArr){
         },
                 
         series:[{
+            name: "Number of times in range",
             data: timeData
         }]
     });  
