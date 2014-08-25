@@ -1,7 +1,7 @@
 #Times 2 Stats
 
 ##Link
-You can find T2S**[here](http://tobip.ch/times2stats/)**
+You can find T2S **[here](http://tobip.ch/times2stats/)**
 
 ##How To
 Convert your Cubing Times easily to stats and graphs with this nice tool.
