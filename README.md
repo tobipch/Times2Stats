@@ -30,8 +30,8 @@ You also have the option to export your graphs as images (png/jpg/svg) or as pdf
 
 ##Found a Bug?
 If you found a bug, you have 3 options to report it easily.
-- Open an github-issue on this project --> (Open issue)[https://github.com/tobipch/Times2Stats/issues/new]
-- Report the bug on the speedsolving.com forum --> (Forum Thread) [http://www.speedsolving.com/forum/showthread.php?48579-Times-2-Graph]
+- Open an github-issue on this project --> [Open issue](https://github.com/tobipch/Times2Stats/issues/new)
+- Report the bug on the speedsolving.com forum --> [Forum Thread] (http://www.speedsolving.com/forum/showthread.php?48579-Times-2-Graph)
 - Send me a mail --> tobias.peter@bluewin.ch
 
 I'm happy about every report, so go on :)
