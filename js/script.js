@@ -94,7 +94,7 @@ function sampleData(){
     document.getElementById("timeInput").value = "";
     var sampleData = "";
     for(var i=0;i<150;i++){
-        var randNum = ((Math.random()*20)+10).toFixed(2);
+        var randNum = ((Math.random()*12)+10).toFixed(2);
         sampleData += randNum.toString() + ", ";
     }
     sampleData = sampleData.substring(0, sampleData.length - 2);
