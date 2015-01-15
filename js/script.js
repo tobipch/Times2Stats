@@ -480,7 +480,13 @@ function setDefaultOptions(){
             backgroundColor: "#1A222F",
             spacing: [30,20,20,20]
         },
-
+        
+        plotOptions: {
+            series: {
+                turboThreshold: 0
+            }
+        },
+        
         colors: ["#00CF99", "#B2E097"],
 
         title: {text: ""},
