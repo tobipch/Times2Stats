@@ -572,7 +572,8 @@ function createLineGraph(timeArr){
 
         series:[{
             name: "Time",
-            data: timeArr
+            data: timeArr,
+            softThreshold: true
         }]
     });
 }
@@ -591,6 +592,7 @@ function createScatterPlot(timeArr){
         },
         
         yAxis: {
+            floor: 0,
             title:{
                 text: "Time"
             }
